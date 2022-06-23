@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +15,10 @@
     "express-handlebars": "^6.0.5"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "eslint-plugin-react": "^7.30.0",
+    "jest": "^28.1.0",
+    "nodemon": "^2.0.15",
+    "portfinder": "^1.0.28",
+    "puppeteer": "^14.4.1"
   }
 }

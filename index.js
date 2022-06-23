@@ -2,6 +2,8 @@ const express = require('express')
 const ExpressHandlebars = require('express-handlebars').engine
 
 const randonFortune = require('./lib/fortune')
+const handlers = require('./lib/handlers')
+
 
 const app = express()
 
@@ -15,28 +17,22 @@ app.set('view engine', 'handlebars')
 
 app.use(express.static(__dirname + '/public'))
 
+app.get('/', handlers.home)
 
-app.get('/', (req,res) => res.render('home'))
+app.get('/contact', handlers.contact )
 
-app.get('/contact', (req,res)=> res.render('contact') )
-
-app.get('/about', (req,res)=>{ 
-    
-    res.render('about',{fortune: randonFortune.getFortune()})
-} )
-
-app.get('/img', (req,res)=> res.render('contact') )
-
-app.use((req,res)=>{
-    res.status(404)
-    res.render('404')
-})
-app.use((err,req,res,next)=>{
-    console.error(err.message);
-    res.status(500)
-    res.render('500')
-})
+app.get('/about', handlers.about)
 
 
 
-app.listen(port,()=>console.log(`Express запущен на ${port} порту`))
+app.use(handlers.notFound)
+app.use(handlers.servererror)
+
+
+if(require.main === module){
+    app.listen(port,()=>console.log(`Express запущен на ${port} порту`))
+}else {
+    module.exports = app
+}
+
+// app.listen(port,()=>console.log(`Express запущен на ${port} порту`))
